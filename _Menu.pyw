@@ -18,6 +18,7 @@
 #   admin / admin123 (Administrador)
 #   medico / medico123 (Médico)
 #   enfermero / enfermero123 (Enfermero)
+#   administrativo / admin123 (Administrativo)
 # ================================================================
 
 import sqlite3
@@ -114,6 +115,7 @@ ROLES_PERMITIDOS = {
     'Pacientes': ['admin', 'medico', 'enfermero', 'administrativo'],
     'Profesionales': ['admin', 'administrativo'],
     'Turnos': ['admin', 'administrativo'],
+    'Agenda profesional': ['admin', 'administrativo'],
     'Agenda y recordatorios': ['admin', 'administrativo'],
     'Signos Vitales': ['admin', 'medico', 'enfermero'],
     'Prescripciones': ['admin', 'medico'],
@@ -127,60 +129,113 @@ ROLES_PERMITIDOS = {
     'Usuarios': ['admin']
 }
 
-
 MODULOS = {
     'ADMINISTRACIÓN': {
         'color': '#2196F3',
         'icono': '🟦',
         'modulos': [
-            {'nombre': 'Pacientes', 'archivo': '_Pacientes_def_app.pyw',
-             'descripcion': 'Gestión de pacientes', 'icono': '👤'},
-            {'nombre': 'Profesionales', 'archivo': '_Profesionales_def_app.pyw',
-             'descripcion': 'Gestión de profesionales', 'icono': '👨‍⚕️'},
-            {'nombre': 'Turnos', 'archivo': '_Gestion_turnos.pyw',
-             'descripcion': 'Registro y gestión de turnos', 'icono': '📅'},
-            {'nombre': 'Agenda y recordatorios', 'archivo': '_Asignacion_recordatorios.pyw',
-             'descripcion': 'Asignación sugerida, recordatorios y asistencia', 'icono': '⏰'}
+            {
+                'nombre': 'Pacientes',
+                'archivo': '_Pacientes_def_app.pyw',
+                'descripcion': 'Gestión de pacientes',
+                'icono': '👤'
+            },
+            {
+                'nombre': 'Profesionales',
+                'archivo': '_Profesionales_def_app.pyw',
+                'descripcion': 'Gestión de profesionales',
+                'icono': '👨‍⚕️'
+            },
+            {
+                'nombre': 'Agenda profesional',
+                'archivo': '_Agenda_profesionales.pyw',
+                'descripcion': 'Agenda diaria y disponibilidad',
+                'icono': '📆'
+            },
+            {
+                'nombre': 'Turnos',
+                'archivo': '_Gestion_turnos.pyw',
+                'descripcion': 'Registro y gestión de turnos',
+                'icono': '📅'
+            },
+            {
+                'nombre': 'Agenda y recordatorios',
+                'archivo': '_Asignacion_recordatorios.pyw',
+                'descripcion': 'Asignación sugerida, recordatorios y asistencia',
+                'icono': '⏰'
+            }
         ]
     },
     'CLÍNICA': {
         'color': '#4CAF50',
         'icono': '🟩',
         'modulos': [
-            {'nombre': 'Signos Vitales', 'archivo': '_Signos_vitales_def_app.pyw',
-             'descripcion': 'Registro de signos vitales', 'icono': '❤️'},
-            {'nombre': 'Prescripciones', 'archivo': '_Prescripciones_def_app.pyw',
-             'descripcion': 'Prescripción de medicamentos', 'icono': '💊'},
-            {'nombre': 'Consulta de intervenciones', 'archivo': '_Consulta_intervenciones.pyw',
-             'descripcion': 'Consulta de intervenciones clínicas', 'icono': '🩺'},
-            {'nombre': 'Historia Clínica', 'archivo': '_HCE.pyw',
-             'descripcion': 'Consulta y gestión de la historia clínica', 'icono': '📋'}
+            {
+                'nombre': 'Signos Vitales',
+                'archivo': '_Signos_vitales_def_app.pyw',
+                'descripcion': 'Registro de signos vitales',
+                'icono': '❤️'
+            },
+            {
+                'nombre': 'Prescripciones',
+                'archivo': '_Prescripciones_def_app.pyw',
+                'descripcion': 'Prescripción de medicamentos',
+                'icono': '💊'
+            },
+            {
+                'nombre': 'Consulta de intervenciones',
+                'archivo': '_Consulta_intervenciones.pyw',
+                'descripcion': 'Consulta de intervenciones clínicas',
+                'icono': '🩺'
+            },
+            {
+                'nombre': 'Historia Clínica',
+                'archivo': '_HCE.pyw',
+                'descripcion': 'Consulta y gestión de la historia clínica',
+                'icono': '📋'
+            }
         ]
     },
     'TABLAS MAESTRAS': {
         'color': '#FF9800',
         'icono': '🟨',
         'modulos': [
-            {'nombre': 'Tablas Maestras', 'archivo': '_Tablas_maestras.pyw',
-             'descripcion': 'Especialidades, SNOMED CT y Fármacos', 'icono': '📚'}
+            {
+                'nombre': 'Tablas Maestras',
+                'archivo': '_Tablas_maestras.pyw',
+                'descripcion': 'Especialidades, SNOMED CT y Fármacos',
+                'icono': '📚'
+            }
         ]
     },
     'INTEROPERABILIDAD': {
         'color': '#E91E63',
         'icono': '🟥',
         'modulos': [
-            {'nombre': 'Interoperabilidad FHIR', 'archivo': '_Interoperabilidad_FHIR.pyw',
-             'descripcion': 'Importación y exportación de recursos FHIR', 'icono': '🔄'},
-            {'nombre': 'Gestión DICOM', 'archivo': '_Herramientas_DICOM_Visor.pyw',
-             'descripcion': 'Conversión y anonimización de imágenes médicas', 'icono': '🩻'}
+            {
+                'nombre': 'Interoperabilidad FHIR',
+                'archivo': '_Interoperabilidad_FHIR.pyw',
+                'descripcion': 'Importación y exportación de recursos FHIR',
+                'icono': '🔄'
+            },
+            {
+                'nombre': 'Gestión DICOM',
+                'archivo': '_Herramientas_DICOM_Visor.pyw',
+                'descripcion': 'Conversión y anonimización de imágenes médicas',
+                'icono': '🩻'
+            }
         ]
     },
     'SEGURIDAD': {
         'color': '#9C27B0',
         'icono': '🔐',
         'modulos': [
-            {'nombre': 'Usuarios', 'archivo': '_Usuarios_app.pyw',
-             'descripcion': 'Gestión de usuarios y permisos', 'icono': '👥'}
+            {
+                'nombre': 'Usuarios',
+                'archivo': '_Usuarios_app.pyw',
+                'descripcion': 'Gestión de usuarios y permisos',
+                'icono': '👥'
+            }
         ]
     }
 }
@@ -196,7 +251,7 @@ class VentanaLogin:
     def __init__(self, root):
         self.root = root
         self.root.title("OpenHIS-UNLaM - Iniciar Sesión")
-        self.root.geometry("450x520")
+        self.root.geometry("450x600")
         self.root.configure(bg='#003366')
         self.root.resizable(False, False)
 
@@ -239,9 +294,37 @@ class VentanaLogin:
         tk.Label(frame, text="Contraseña", font=('Arial', 11, 'bold'),
                 bg='#003366', fg='white', anchor='w').pack(fill='x', pady=(15, 3))
 
-        self.entry_password = tk.Entry(frame, font=('Arial', 12), width=25,
-                                       show='●', relief='flat', bd=5)
-        self.entry_password.pack(fill='x', ipady=5)
+        # Contenedor de contraseña
+        frame_password = tk.Frame(frame, bg='white')
+        frame_password.pack(fill='x')
+
+        # Campo de contraseña
+        self.entry_password = tk.Entry(
+            frame_password,
+            font=('Arial', 12),
+            show='●',
+            relief='flat',
+            bd=5
+        )
+        self.entry_password.pack(side='left', fill='x', expand=True, ipady=5)
+
+        # Estado de visibilidad
+        self.password_visible = False
+
+        # Botón para mostrar u ocultar contraseña
+        self.btn_password = tk.Button(
+            frame_password,
+            text="👁",
+            font=('Segoe UI Emoji', 12),
+            bg='white',
+            fg='#003366',
+            activebackground='#eeeeee',
+            relief='flat',
+            bd=0,
+            cursor='hand2',
+            command=self.alternar_password
+        )
+        self.btn_password.pack(side='right', padx=5)
 
         # Enter para login
         self.entry_password.bind('<Return>', lambda e: self.login())
@@ -261,11 +344,22 @@ class VentanaLogin:
                 font=('Arial', 9, 'bold'), bg='#002244', fg='#FFD700').pack(anchor='w', padx=10, pady=(5, 0))
 
         tk.Label(frame_info,
-                text="admin / admin123 (Admin)\nmedico / medico123 (Médico)\nenfermero / enfermero123 (Enfermero)",
+                text="admin / admin123 (Admin)\nmedico / medico123 (Médico)\nenfermero / enfermero123 (Enfermero)\nadministrativo / admin123 (Administrativo)",
                 font=('Arial', 9), bg='#002244', fg='white',
                 justify='left').pack(anchor='w', padx=10, pady=(0, 5))
 
         self.entry_usuario.focus()
+        
+    def alternar_password(self):
+        """Muestra u oculta la contraseña ingresada."""
+        self.password_visible = not self.password_visible
+
+        if self.password_visible:
+            self.entry_password.config(show='')
+            self.btn_password.config(text='🙈')
+        else:
+            self.entry_password.config(show='●')
+            self.btn_password.config(text='👁')
 
     def login(self):
         """Intenta autenticar al usuario"""
@@ -465,7 +559,7 @@ class MenuPrincipal:
             font=('Arial', 11, 'bold'),
             bg=bg_color,
             fg=fg_color,
-            width=18,
+            width=22,
             height=4,
             relief='raised',
             bd=3,
